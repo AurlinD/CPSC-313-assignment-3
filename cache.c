@@ -84,7 +84,7 @@ cache_t *cache_new(size_t num_blocks, size_t block_size,
 static int cache_line_check_validity_and_tag(cache_line_t *cache_line, intptr_t tag) {
   
   /* TO BE COMPLETED BY THE STUDENT */
-  return 0; // Added to remove warning; remove once function is implemented.
+  return (cache_line->is_valid && cache_line->tag == tag) ? 1 : 0;
 }
 
 /*
@@ -93,7 +93,11 @@ static int cache_line_check_validity_and_tag(cache_line_t *cache_line, intptr_t 
 static long cache_line_retrieve_data(cache_line_t *cache_line, size_t offset) {
   
   /* TO BE COMPLETED BY THE STUDENT */
-  return 0; // Added to remove warning; remove once function is implemented.
+  long data = cache_line->data[offset];
+  data += cache_line->data[offset + 1] << 8;
+  data += cache_line->data[offset + 2] << 16;
+  data += cache_line->data[offset + 3] << 24;
+  return data;
 }
 
 /*
