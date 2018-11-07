@@ -132,7 +132,12 @@ static cache_line_t *cache_set_find_matching_line(cache_t *cache, cache_set_t *c
   /* Don't forget to call cache_line_make_mru(cache_set, i) if you
    * find a matching cache line.
    */
-  return NULL; // Added to remove warning; remove once function is implemented.
+  for (int i = 0; i < cache->associativity; i++) {
+    if (cache_line_check_validity_and_tag(cache_set->cache_lines[i], tag)) {
+      return cache_line_make_mru(cache_set, i);
+    }
+  }
+  return NULL;
 }
 
 /*
