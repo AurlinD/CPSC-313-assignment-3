@@ -253,12 +253,72 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
 
 static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
 
-  // TODO This function should contain code that produces the same
-  // output as baseMask, but is expected to run faster than mask1 (or
-  // mask0) by making better use of caching.
-  
-  return 0;
-}
+    // TODO This function should contain code that produces the same
+    // output as baseMask, but is expected to run faster than mask1 (or
+    // mask0) by making better use of caching.
+    
+     int i, j;
+    int col, row;
+    long check = 0;
+
+    long (*weight)[N] = calloc(N * N, sizeof(long));
+    
+    //initialize the new image
+    for (i = 0; i < cols; i++){
+      for (j = 0; j < rows; j++) {
+        newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
+        weight[i][j] = WEIGHT_CENTRE;
+    
+      
+    
+    // Count the cells to the top left
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+      
+    
+    
+    // Count the cells immediately above
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+
+    
+    // Count the cells to the top right
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+
+    // Count the cells to the immediate left
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+   
+    // Count the cells to the immediate right
+        newImage[i][j] += oldImage[col][j];
+        weight[i][j]++;
+   
+    // Count the cells to the bottom left
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+    
+    // Count the cells immediately below
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+    
+    // Count the cells to the bottom right
+        newImage[i][j] += oldImage[i][j];
+        weight[i][j]++;
+   
+
+
+    // Produce the final result
+        newImage[i][j] = newImage[i][j] / weight[i][j];
+        check += newImage[i][j];
+    }
+  }
+    
+    return check;
+
+
+
+  }
 
 long mask(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
   return MASK_VERSION(oldImage, newImage, rows, cols);
