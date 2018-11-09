@@ -185,7 +185,9 @@ static cache_line_t *cache_set_add(cache_t *cache, cache_set_t *cache_set,
 long cache_read(cache_t *cache, long *address) {
   
   /* TO BE COMPLETED BY THE STUDENT */
+
   cache_access_count++;
+
 
   uintptr_t tagCache = (uintptr_t) address >> cache->tag_shift;
   uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->set_index_mask;
@@ -194,14 +196,16 @@ long cache_read(cache_t *cache, long *address) {
   cache_set_t *set = &cache->sets[index];
   cache_line_t *line = cache_set_find_matching_line(cache,set,tagCache);
 
+
+
   if (line == NULL){
     cache->miss_count++;
     line = cache_set_add(cache,set, (uintptr_t) address, tagCache);
   }
   else {
-    if ((line->is_valid == 0) || (line->tag != tag)) {
-      cache_miss_count++;
-      line = cache_set_add(cache,set,(uintptr_t) address, tag);
+    if ((line->is_valid == 0) || (line->tagCache != tagCache)) {
+      cache->miss_count++;
+      line = cache_set_add(cache,set,(uintptr_t) address, tagCache);
     }
   }
 
