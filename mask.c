@@ -41,12 +41,12 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   long (*weight)[N] = calloc(N * N, sizeof(long));
   
   //initialize the new image
-  for (i = 0; i < cols; i++)
+  for (i = 0; i < cols; i++){
     for (j = 0; j < rows; j++) {
       newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
       weight[i][j] = WEIGHT_CENTRE;
     }
-  
+  }
   
   // Count the cells to the top left
   for (i = 1; i < cols; i++){
@@ -260,7 +260,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // mask0) by making better use of caching.
 
   int i, j;
-  int col, row, c1, r1;
+  int col, row;
   long check = 0;
 
   long (*weight)[N] = calloc(N * N, sizeof(long));
@@ -315,16 +315,16 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // Count the cells to the top left
 
       if ((i > 0) && (j > 0)){
-      c1 = i - 1;
-      r1 = j - 1;
-      newImage[i][j] += oldImage[c1][r1];
+      col = i - 1;
+      row = j - 1;
+      newImage[i][j] += oldImage[col][row];
       weight[i][j]++;
     }
 
 
     if (j > 0){
-      r1 = j - 1;
-      newImage[i][j] += oldImage[i][r1];
+      row = j - 1;
+      newImage[i][j] += oldImage[i][row];
       weight[i][j]++;
     }
 
@@ -339,27 +339,33 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // }
 
     if ((i < cols-1) && (j > 0)){
-      c1 = i + 1;
-      r1 = j - 1;
-      newImage[i][j] += oldImage[c1][r1];
+      col = i + 1;
+      row = j - 1;
+      newImage[i][j] += oldImage[col][row];
       weight[i][j]++;
     }
 
+      // // Count the cells to the immediate left
+  // for (i = 1; i < cols; i++) {
+  //   col = i - 1;
+  //   for (j = 0; j < rows; j++) {
+  //     newImage[i][j] += oldImage[col][j];
+  //     weight[i][j]++;
+  //   }
+  // }
+
+    if (i > 0 ){
+      col = i - 1;
+      newImage[i][j] += oldImage[col][j];
+      weight[i][j]++;      
+    }
 
 
   }
 
 }
 
-  
-  // Count the cells to the immediate left
-  for (i = 1; i < cols; i++) {
-    col = i - 1;
-    for (j = 0; j < rows; j++) {
-      newImage[i][j] += oldImage[col][j];
-      weight[i][j]++;
-    }
-  }
+
   
   // Count the cells to the immediate right
   for (i = 0; i < cols - 1; i++) {
