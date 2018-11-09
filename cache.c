@@ -153,7 +153,7 @@ static cache_line_t *find_available_cache_line(cache_t *cache, cache_set_t *cach
    * have selected the cache line to use.
    */
 
-  for (int = 0; i < cache->associativity; i++) {
+  for (int i = 0; i < cache->associativity; i++) {
     if (cache_set->cache_lines[i]->is_valid) {
       return cache_line_make_mru(cache_set, i);
     }
@@ -186,11 +186,11 @@ long cache_read(cache_t *cache, long *address) {
   
   /* TO BE COMPLETED BY THE STUDENT */
 
-  cache_access_count++;
+  cache->access_count++;
 
 
   uintptr_t tagCache = (uintptr_t) address >> cache->tag_shift;
-  uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->set_index_mask;
+  uintptr_t indexCache = ((uintptr_t) address >> cache->cache_index_shift) & cache->cache_index_mask;
   uintptr_t offsetCache = (uintptr_t) address & cache->block_offset_mask;
 
   cache_set_t *set = &cache->sets[indexCache];
@@ -203,7 +203,7 @@ long cache_read(cache_t *cache, long *address) {
     line = cache_set_add(cache,set, (uintptr_t) address, tagCache);
   }
   else {
-    if ((line->is_valid == 0) || (line->tagCache != tagCache)) {
+    if ((line->is_valid == 0) || (line->tag != tagCache)) {
       cache->miss_count++;
       line = cache_set_add(cache,set,(uintptr_t) address, tagCache);
     }
@@ -211,7 +211,7 @@ long cache_read(cache_t *cache, long *address) {
 
 
 
-  return cache_line_retrieve_data(line, offset); // Added to remove warning; remove once function is implemented.
+  return cache_line_retrieve_data(line, offsetCache); // Added to remove warning; remove once function is implemented.
 }
 
 /*
