@@ -96,31 +96,31 @@ int main() {
   // printf("Sum = %ld\n", sumC(test_array, 64, 64));
   // print_stats();
 
-  cache = cache_new(64, 32, 1, CACHE_REPLACEMENTPOLICY_LRU);
+  cache = cache_new(64, 32, 1, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumA(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 1, CACHE_REPLACEMENTPOLICY_LRU);
+  cache = cache_new(64, 32, 1, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumB(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 1, CACHE_REPLACEMENTPOLICY_LRU);
+  cache = cache_new(64, 32, 1, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumC(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 2, CACHE_REPLACEMENTPOLICY_LRU);
+  cache = cache_new(64, 32, 2, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumB(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 2, CACHE_REPLACEMENTPOLICY_LRU);
+  cache = cache_new(64, 32, 2, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumB(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 4, CACHE_REPLACEMENTPOLICY_RANDOM);
+  cache = cache_new(64, 32, 4, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumB(test_array, 8, 128));
   print_stats();
 
-  cache = cache_new(64, 32, 1, CACHE_REPLACEMENTPOLICY_RANDOM);
+  cache = cache_new(64, 32, 1, CACHE_TRACEPOLICY);
   printf("Sum = %ld\n", sumB(test_array, 8, 120));
   print_stats();
 
