@@ -144,9 +144,9 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
 
 static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
 
-  TODO This function should contain code that produces the same
-  output as baseMask, but is expected to run faster than mask0 by
-  making better use of caching.
+  // TODO This function should contain code that produces the same
+  // output as baseMask, but is expected to run faster than mask0 by
+  // making better use of caching.
 
   int i, j;
   int col, row;
