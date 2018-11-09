@@ -152,7 +152,13 @@ static cache_line_t *find_available_cache_line(cache_t *cache, cache_set_t *cach
   /* Don't forget to call cache_line_make_mru(cache_set, i) once you
    * have selected the cache line to use.
    */
-  return NULL; // Added to remove warning; remove once function is implemented.
+
+  for (int = 0; i < cache->associativity; i++) {
+    if (cache_set->cache_lines[i]->is_valid) {
+      return cache_line_make_mru(cache_set, i);
+    }
+  }
+  return cache_line_make_mru(cache_set, cache->associativity - 1); // Added to remove warning; remove once function is implemented.
 }
 
 /*
@@ -179,7 +185,27 @@ static cache_line_t *cache_set_add(cache_t *cache, cache_set_t *cache_set,
 long cache_read(cache_t *cache, long *address) {
   
   /* TO BE COMPLETED BY THE STUDENT */
-  return 0; // Added to remove warning; remove once function is implemented.
+
+  uintptr_t tagCache = (uintptr_t) address >> cache->tag_shift;
+  uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->cache_index_mask;
+  uintptr_t offsetCache = (uintptr_t) address & cache>block_offset_mask;
+
+  cache_line_t *line = cache_set_find_matching_line(cache,set,tagCache);
+
+  if (line == NULL){
+    cache->miss_count++;
+    line = cache_set_add(cache,set, (uintptr_t) address, tagCache);
+  }
+  else {
+    if ((line->is_valid == 0) || (line->tag != tag)) {
+      cache_miss_count++;
+      line = cache_set_add(cache,set,(uintptr_t) address, tag);
+    }
+  }
+
+  cache_access_count++;
+
+  return cache_line_retrieve_data(line, offset); // Added to remove warning; remove once function is implemented.
 }
 
 /*
