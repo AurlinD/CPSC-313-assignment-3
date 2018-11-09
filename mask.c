@@ -157,11 +157,12 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
   long (*weight)[N] = calloc(N * N, sizeof(long));
   
   //initialize the new image
-  for (i = 0; i < cols; i++)
+  for (i = 0; i < cols; i++){
     for (j = 0; j < rows; j++) {
       newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
       weight[i][j] = WEIGHT_CENTRE;
     }
+  }
   
   // Count the cells to the top left
   for (i = 1; i < cols; i++) {
@@ -249,11 +250,15 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
   return check;
 
 
+}
+  
+
+
 
 
 //Check if two images are identical
  // return baseMask(oldImage, newImage, rows, cols);
-}
+
   
 
 
