@@ -389,6 +389,22 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
       weight[i][j]++;
     }
 
+      // // Count the cells immediately below
+  // for (i = 0; i < cols; i++) {
+  //   for (j = 0; j < rows - 1; j++) {
+  //     row = j + 1;
+  //     newImage[i][j] += oldImage[i][row];
+  //     weight[i][j]++;
+  //   }
+  // }
+
+    if (j < rows - 1){
+       row = j + 1;
+       newImage[i][j] += oldImage[i][row];
+       weight[i][j]++;
+    }
+  
+
 
 
   }
@@ -398,15 +414,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
 
   
 
-  // Count the cells immediately below
-  for (i = 0; i < cols; i++) {
-    for (j = 0; j < rows - 1; j++) {
-      row = j + 1;
-      newImage[i][j] += oldImage[i][row];
-      weight[i][j]++;
-    }
-  }
-  
+
   // Count the cells to the bottom right
   for (i = 0; i < cols - 1; i++) {
     col = i + 1;
