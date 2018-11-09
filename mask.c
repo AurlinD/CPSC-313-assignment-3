@@ -260,7 +260,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // mask0) by making better use of caching.
 
   int i, j;
-  int col, row;
+  int col, row, c1, r1;
   long check = 0;
 
   long (*weight)[N] = calloc(N * N, sizeof(long));
@@ -293,12 +293,14 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
    
   
   // Count the cells to the top left
-      int r1 = i;
-      int c1 = j;
-      if ((r1 != cols) || (c1 != rows)){
+
+      if ((r1 > 0) && (c1 > 0)){
+      c1 = j - 1;
+      r1 = i - 1;
       newImage[i][j] += oldImage[c1][r1];
+      weight[i][j]++;
     }
-    weight[i][j]++;
+
   }
 }
   
