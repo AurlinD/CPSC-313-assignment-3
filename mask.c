@@ -415,6 +415,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // }
 
     if ((i < cols - 1) && (j < rows - 1)){
+       col = i + 1;
        row = j + 1;
        newImage[i][j] += oldImage[col][row];
        weight[i][j]++;
