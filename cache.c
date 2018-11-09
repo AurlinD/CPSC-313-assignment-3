@@ -193,7 +193,7 @@ long cache_read(cache_t *cache, long *address) {
   uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->set_index_mask;
   uintptr_t offsetCache = (uintptr_t) address & cache->block_offset_mask;
 
-  cache_set_t *set = &cache->sets[index];
+  cache_set_t *set = &cache->sets[indexCache];
   cache_line_t *line = cache_set_find_matching_line(cache,set,tagCache);
 
 
