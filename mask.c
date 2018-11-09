@@ -265,23 +265,43 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
 
   long (*weight)[N] = calloc(N * N, sizeof(long));
   
-  //initialize the new image
+  // //initialize the new image
+  // for (i = 0; i < cols; i++){
+  //   for (j = 0; j < rows; j++) {
+  //     newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
+  //     weight[i][j] = WEIGHT_CENTRE;
+  //   }
+  // }
+  
+  // // Count the cells to the top left
+  // for (i = 1; i < cols; i++) {
+  //   col = i - 1;
+  //   for (j = 1; j < rows; j++) {
+  //     row = j - 1;
+  //     newImage[i][j] += oldImage[col][row];
+  //     weight[i][j]++;
+  //   }
+  // }
+
+
+    //initialize the new image
   for (i = 0; i < cols; i++){
     for (j = 0; j < rows; j++) {
       newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
       weight[i][j] = WEIGHT_CENTRE;
-    }
-  }
+    
+   
   
   // Count the cells to the top left
-  for (i = 1; i < cols; i++) {
-    col = i - 1;
-    for (j = 1; j < rows; j++) {
-      row = j - 1;
-      newImage[i][j] += oldImage[col][row];
+      int r1 = i;
+      int c1 = j;
+      if ((i != cols) || (j != rows)){
+      newImage[i][j] += oldImage[cols][rows];
       weight[i][j]++;
+
     }
   }
+}
   
   // Count the cells immediately above
   for (i = 0; i < cols; i++) {
