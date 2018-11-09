@@ -185,11 +185,13 @@ static cache_line_t *cache_set_add(cache_t *cache, cache_set_t *cache_set,
 long cache_read(cache_t *cache, long *address) {
   
   /* TO BE COMPLETED BY THE STUDENT */
+  cache_access_count++;
 
   uintptr_t tagCache = (uintptr_t) address >> cache->tag_shift;
-  uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->cache_index_mask;
-  uintptr_t offsetCache = (uintptr_t) address & cache>block_offset_mask;
+  uintptr_t indexCache = ((uintptr_t) address >> cache->set_index_shift) & cache->set_index_mask;
+  uintptr_t offsetCache = (uintptr_t) address & cache->block_offset_mask;
 
+  cache_set_t *set = &cache->sets[index];
   cache_line_t *line = cache_set_find_matching_line(cache,set,tagCache);
 
   if (line == NULL){
@@ -203,7 +205,7 @@ long cache_read(cache_t *cache, long *address) {
     }
   }
 
-  cache_access_count++;
+
 
   return cache_line_retrieve_data(line, offset); // Added to remove warning; remove once function is implemented.
 }
