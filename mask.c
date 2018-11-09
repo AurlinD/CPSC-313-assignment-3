@@ -265,87 +265,93 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
 
   long (*weight)[N] = calloc(N * N, sizeof(long));
   
-  // //initialize the new image
-  // for (i = 0; i < cols; i++){
-  //   for (j = 0; j < rows; j++) {
-  //     newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
-  //     weight[i][j] = WEIGHT_CENTRE;
-  // }
+  //initialize the new image
+  for (i = 0; i < cols; i++){
+    for (j = 0; j < rows; j++) {
+      newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
+      weight[i][j] = WEIGHT_CENTRE;
     
+   
   
-  // // Count the cells to the top left
-  //     newImage[i][j] += oldImage[i][j];
-  //     weight[i][j]++;
+  // Count the cells to the top left
+      if ((i != cols) || (j != rows)){
+      newImage[i][j] += oldImage[i][j];
+      weight[i][j]++;
+    }
+  
+  
+  // Count the cells immediately above
+  for (i = 0; i < cols; i++) {
+    for (j = 1; j < rows; j++) {
+      row = j - 1;
+      newImage[i][j] += oldImage[i][row];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells to the top right
+  for (i = 0; i < cols - 1; i++) {
+    col = i + 1;
+    for (j = 1; j < rows; j++) {
+      row = j - 1;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells to the immediate left
+  for (i = 1; i < cols; i++) {
+    col = i - 1;
+    for (j = 0; j < rows; j++) {
+      newImage[i][j] += oldImage[col][j];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells to the immediate right
+  for (i = 0; i < cols - 1; i++) {
+    col = i + 1;
+    for (j = 0; j < rows; j++) {
+      newImage[i][j] += oldImage[col][j];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells to the bottom left
+  for (i = 1; i < cols; i++) {
+    col = i - 1;
+    for (j = 0; j < rows - 1; j++) {
+      row = j + 1;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells immediately below
+  for (i = 0; i < cols; i++) {
+    for (j = 0; j < rows - 1; j++) {
+      row = j + 1;
+      newImage[i][j] += oldImage[i][row];
+      weight[i][j]++;
+    }
+  }
+  
+  // Count the cells to the bottom right
+  for (i = 0; i < cols - 1; i++) {
+    col = i + 1;
+    for (j = 0; j < rows - 1; j++) {
+      row = j + 1;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
+    }
+  }
 
-  
-  // // Count the cells immediately above
-  //     newImage[i][j] += oldImage[i][row];
-  //     weight[i][j]++;
-
-  
-  // // Count the cells to the top right
-  // for (i = 0; i < cols - 1; i++) {
-  //   col = i + 1;
-  //   for (j = 1; j < rows; j++) {
-  //     row = j - 1;
-  //     newImage[i][j] += oldImage[col][row];
-  //     weight[i][j]++;
-  //   }
-  // }
-  
-  // // Count the cells to the immediate left
-  // for (i = 1; i < cols; i++) {
-  //   col = i - 1;
-  //   for (j = 0; j < rows; j++) {
-  //     newImage[i][j] += oldImage[col][j];
-  //     weight[i][j]++;
-  //   }
-  // }
-  
-  // // Count the cells to the immediate right
-  // for (i = 0; i < cols - 1; i++) {
-  //   col = i + 1;
-  //   for (j = 0; j < rows; j++) {
-  //     newImage[i][j] += oldImage[col][j];
-  //     weight[i][j]++;
-  //   }
-  // }
-  
-  // // Count the cells to the bottom left
-  // for (i = 1; i < cols; i++) {
-  //   col = i - 1;
-  //   for (j = 0; j < rows - 1; j++) {
-  //     row = j + 1;
-  //     newImage[i][j] += oldImage[col][row];
-  //     weight[i][j]++;
-  //   }
-  // }
-  
-  // // Count the cells immediately below
-  // for (i = 0; i < cols; i++) {
-  //   for (j = 0; j < rows - 1; j++) {
-  //     row = j + 1;
-  //     newImage[i][j] += oldImage[i][row];
-  //     weight[i][j]++;
-  //   }
-  // }
-  
-  // // Count the cells to the bottom right
-  // for (i = 0; i < cols - 1; i++) {
-  //   col = i + 1;
-  //   for (j = 0; j < rows - 1; j++) {
-  //     row = j + 1;
-  //     newImage[i][j] += oldImage[col][row];
-  //     weight[i][j]++;
-  //   }
-  // }
-
-  // // Produce the final result
-  // for (i = 0; i < cols; i++)
-  //   for (j = 0; j < rows; j++) {
-  //     newImage[i][j] = newImage[i][j] / weight[i][j];
-  //     check += newImage[i][j];
-  //   }
+  // Produce the final result
+  for (i = 0; i < cols; i++)
+    for (j = 0; j < rows; j++) {
+      newImage[i][j] = newImage[i][j] / weight[i][j];
+      check += newImage[i][j];
+    }
   
   return check;
 
