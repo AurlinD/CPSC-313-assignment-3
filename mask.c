@@ -274,8 +274,8 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
    
   
   // Count the cells to the top left
-      int r1 = i;
-      int c1 = j;
+      int *r1 = &i;
+      int *c1 = &j;
       if ((r1 != cols) || (c1 != rows)){
       newImage[i][j] += oldImage[cols][rows];
     }
