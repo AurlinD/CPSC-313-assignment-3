@@ -43,8 +43,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   //initialize the new image
   for (i = 0; i < cols; i++)
     for (j = 0; j < rows; j++) {
-      newImage[j][i] = WEIGHT_CENTRE * oldImage[j][i];
-      weight[j][i] = WEIGHT_CENTRE;
+      newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
+      weight[i][j] = WEIGHT_CENTRE;
     }
   
   // Count the cells to the top left
@@ -52,8 +52,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
     col = i - 1;
     for (j = 1; j < rows; j++) {
       row = j - 1;
-      newImage[j][i] += oldImage[row][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
     }
   }
   
@@ -61,8 +61,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   for (i = 0; i < cols; i++) {
     for (j = 1; j < rows; j++) {
       row = j - 1;
-      newImage[j][i] += oldImage[row][i];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[i][row];
+      weight[i][j]++;
     }
   }
   
@@ -71,8 +71,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
     col = i + 1;
     for (j = 1; j < rows; j++) {
       row = j - 1;
-      newImage[j][i] += oldImage[row][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
     }
   }
   
@@ -80,8 +80,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   for (i = 1; i < cols; i++) {
     col = i - 1;
     for (j = 0; j < rows; j++) {
-      newImage[j][i] += oldImage[j][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][j];
+      weight[i][j]++;
     }
   }
   
@@ -89,8 +89,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   for (i = 0; i < cols - 1; i++) {
     col = i + 1;
     for (j = 0; j < rows; j++) {
-      newImage[j][i] += oldImage[j][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][j];
+      weight[i][j]++;
     }
   }
   
@@ -99,8 +99,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
     col = i - 1;
     for (j = 0; j < rows - 1; j++) {
       row = j + 1;
-      newImage[j][i] += oldImage[row][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
     }
   }
   
@@ -108,8 +108,8 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
   for (i = 0; i < cols; i++) {
     for (j = 0; j < rows - 1; j++) {
       row = j + 1;
-      newImage[j][i] += oldImage[row][i];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[i][row];
+      weight[i][j]++;
     }
   }
   
@@ -118,19 +118,20 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
     col = i + 1;
     for (j = 0; j < rows - 1; j++) {
       row = j + 1;
-      newImage[j][i] += oldImage[row][col];
-      weight[j][i]++;
+      newImage[i][j] += oldImage[col][row];
+      weight[i][j]++;
     }
   }
 
   // Produce the final result
   for (i = 0; i < cols; i++)
     for (j = 0; j < rows; j++) {
-      newImage[j][i] = newImage[j][i] / weight[j][i];
-      check += newImage[j][i];
+      newImage[i][j] = newImage[i][j] / weight[i][j];
+      check += newImage[i][j];
     }
   
   return check;
+
 
 
 
@@ -147,7 +148,6 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
   // TODO This function should contain code that produces the same
   // output as baseMask, but is expected to run faster than mask0 by
   // making better use of caching.
-
    int i, j;
   int col, row;
   long check = 0;
@@ -247,6 +247,7 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
   return check;
 
 
+}
   
 
 
