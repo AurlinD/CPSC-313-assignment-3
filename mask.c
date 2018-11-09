@@ -421,26 +421,21 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
        weight[i][j]++;
     }
 
+  // // Produce the final result
+  // for (i = 0; i < cols; i++)
+  //   for (j = 0; j < rows; j++) {
+      // newImage[i][j] = newImage[i][j] / weight[i][j];
+      // check += newImage[i][j];
+  //   }
 
+      newImage[i][j] = newImage[i][j] / weight[i][j];
+      check += newImage[i][j];   
 
 
   }
 
 }
 
-
-  
-
-
-
-
-  // Produce the final result
-  for (i = 0; i < cols; i++)
-    for (j = 0; j < rows; j++) {
-      newImage[i][j] = newImage[i][j] / weight[i][j];
-      check += newImage[i][j];
-    }
-  
   return check;
 
 
