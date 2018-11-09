@@ -294,9 +294,9 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   
   // Count the cells to the top left
 
-      if ((r1 > 0) && (c1 > 0)){
-      c1 = j - 1;
-      r1 = i - 1;
+      if ((i > 0) && (j > 0)){
+      c1 = i - 1;
+      r1 = j - 1;
       newImage[i][j] += oldImage[c1][r1];
       weight[i][j]++;
     }
