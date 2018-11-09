@@ -278,6 +278,8 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
       newImage[i][j] += oldImage[i][j];
       weight[i][j]++;
     }
+  }
+}
   
   
   // Count the cells immediately above
@@ -355,8 +357,8 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   
   return check;
 
-
 }
+
 long mask(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
   return MASK_VERSION(oldImage, newImage, rows, cols);
 }
