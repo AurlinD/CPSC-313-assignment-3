@@ -24,6 +24,7 @@ b. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the 
     The cache will keep storing array data 16 sets (16 * 8 = 128) at a time till the the 8th block at a[0][8]. 
     Then it will cycle back to set 0 which will get replaced by a[0][8], causing misses to all of the accesses in the block. 
     The next cache access will all replace old blocks because they map to blocks that will have been replaced due to being evenly divisible.
+    Therefore the miss rate = 1.000
 
 c. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the function sumC from the program cache-test provided in the first part of the assignment.
     Sum = 786944
@@ -32,7 +33,7 @@ c. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the 
     This case, we are caching in column major order with a stride of 2.
 
     Since each block can fit 2 longs, and the stride is 2, every block will have 2 accessses, a compulsory miss, followed by a cache hit.
-    Since the cache is evenly divisible, this will occur throughout the loop, and the entire cache will have a miss rate of 1/2
+    Since the cache is evenly divisible, this will occur throughout the loop, and the entire cache will have a miss rate = 0.5000
 
 d. An array of long with 8 rows and 128 columns, a two-way set-associative cache with LRU replacement, and the function sumB from the program cache-test provided in the first part of the assignment.
     Sum = 786944
@@ -71,6 +72,12 @@ g. An array of long with 8 rows and 120 columns, a direct-mapped cache, and the 
     Sum = 707040
     Miss rate =   0.2500
 
+    This seems very similar to b., however, in this case, all the first four accesses will be mapped into different sets due to the having 120 columns.
+    These four accesses will be compulsory misses, however the next 3 longs in each block will be cache hits.
+    This loops, and the miss rate = 0.2500
+
+
+--------------------------------------------------------------------------------------------------
 Part 3:
 mask0 results :
 c0f0b@anvil:a3_c0f0b_e1d0b$ ./timemask-mask0 galaxy.pgm 10 galaxyTestMask0.pgm
