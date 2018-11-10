@@ -12,7 +12,9 @@ a. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the 
 
     There are 64 blocks, at 32 bytes per block -> 2048 bytes in the cache. 
     The array has 8 rows * 128 columns * 8 bytes per long = 8,192 bytes.
-    Therefore we know that the cache can store 1/4th of the total array. 
+    Therefore we know that the cache can store 1/4th of the total array.
+
+    This pattern will loop throughout, leading to miss rate = 0.2500. 
 
 b. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the function sumB from the program cache-test provided in the first part of the assignment.
     Sum = 786944
@@ -23,7 +25,7 @@ b. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the 
     The first access at a[0][0] will be a compulsory miss because the cache is empty. The cache will put the first block (4 longs) at set 0.
     The cache will keep storing array data 16 sets (16 * 8 = 128) at a time till the the 8th block at a[0][8]. 
     Then it will cycle back to set 0 which will get replaced by a[0][8], causing misses to all of the accesses in the block. 
-    The next cache access will all replace old blocks because they map to blocks that will have been replaced due to being evenly divisible.
+    The next cache accesses will all be misses because they map to blocks that will have been replaced due to being evenly divisible.
     Therefore the miss rate = 1.000
 
 c. An array of long with 8 rows and 128 columns, a direct-mapped cache, and the function sumC from the program cache-test provided in the first part of the assignment.
