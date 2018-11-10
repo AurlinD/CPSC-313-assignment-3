@@ -323,8 +323,6 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
 
 
 }
-      
-
 
 
 
