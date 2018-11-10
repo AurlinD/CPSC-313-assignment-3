@@ -34,7 +34,7 @@
 static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
   // first change is to make all functions row major order
 
-   int i, j;
+  int i, j;
   int col, row;
   long check = 0;
 
@@ -147,9 +147,7 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
 static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
 
  
-  // TODO This function should contain code that produces the same
-  // output as baseMask, but is expected to run faster than mask1 (or
-  // mask0) by making better use of caching.
+// created only 1 nested loop for all the functions
 
   int i, j;
   int col, row;
@@ -329,18 +327,17 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
 //Check if two images are identical
  // return baseMask(oldImage, newImage, rows, cols);
 
-  
+ 
 
 
 static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
 
-  // TODO This function should contain code that produces the same
-  // output as baseMask, but is expected to run faster than mask1 (or
-  // mask0) by making better use of caching.
+// merged certain if statements to run less code repeatedly
+// added register variable to make new registers for each of the variables
 
-  int i, j;
-  int col, row;
-  long check = 0;
+  register int i, j;
+  register int col, row;
+  register long check = 0;
 
   long (*weight)[N] = calloc(N * N, sizeof(long));
 
@@ -472,7 +469,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
       if (j > 0){
         col = i + 1;
         row = j - 1;
-        newImage[i][j] += oldImage[col][row];
+       newImage[i][j] += oldImage[col][row];
         weight[i][j]++;
       }    
     }
@@ -481,7 +478,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   //   col = i - 1;
   //   for (j = 0; j < rows - 1; j++) {
   //     row = j + 1;
-  //     newImage[i][j] += oldImage[col][row];
+  //     register newImage[i][j] += oldImage[col][row];
   //     weight[i][j]++;
   //   }
   // }
@@ -492,7 +489,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   // for (i = 0; i < cols; i++) {
   //   for (j = 0; j < rows - 1; j++) {
   //     row = j + 1;
-  //     newImage[i][j] += oldImage[i][row];
+  //     register newImage[i][j] += oldImage[i][row];
   //     weight[i][j]++;
   //   }
   // }
@@ -516,7 +513,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
     if ((i < cols - 1) && (j < rows - 1)){
        col = i + 1;
        row = j + 1;
-       newImage[i][j] += oldImage[col][row];
+        newImage[i][j] += oldImage[col][row];
        weight[i][j]++;
     }
 
