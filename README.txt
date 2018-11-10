@@ -70,3 +70,119 @@ f. An array of long with 8 rows and 128 columns, a four-way set-associative cach
 g. An array of long with 8 rows and 120 columns, a direct-mapped cache, and the function sumB from the program cache-test provided in the first part of the assignment.
     Sum = 707040
     Miss rate =   0.2500
+
+Part 3:
+mask0 results :
+c0f0b@anvil:a3_c0f0b_e1d0b$ ./timemask-mask0 galaxy.pgm 10 galaxyTestMask0.pgm
+Processing a mask for a 2048x2048 image for 10 trials (check must be: 158581069)
+
+Base run  0 done, check    158581069, took      2803781 usec
+Base run  1 done, check    158581069, took      2778138 usec
+Base run  2 done, check    158581069, took      2709853 usec
+Base run  3 done, check    158581069, took      2669435 usec
+Base run  4 done, check    158581069, took      2688988 usec
+Base run  5 done, check    158581069, took      3093382 usec
+Base run  6 done, check    158581069, took      3050108 usec
+Base run  7 done, check    158581069, took      3022733 usec
+Base run  8 done, check    158581069, took      3054379 usec
+Base run  9 done, check    158581069, took      3088507 usec
+
+The base implementation took:
+	Best   :      2669435 usec
+	Average:      2895930 usec
+
+Starting the optimized version
+
+Optimized run  0 done, check    158581069, took       475793 usec
+Optimized run  1 done, check    158581069, took       477459 usec
+Optimized run  2 done, check    158581069, took       481114 usec
+Optimized run  3 done, check    158581069, took       481194 usec
+Optimized run  4 done, check    158581069, took       481250 usec
+Optimized run  5 done, check    158581069, took       479580 usec
+Optimized run  6 done, check    158581069, took       478080 usec
+Optimized run  7 done, check    158581069, took       479639 usec
+Optimized run  8 done, check    158581069, took       482177 usec
+Optimized run  9 done, check    158581069, took       478864 usec
+
+The optimized implementation took:
+	Best   :       475793 usec
+	Average:       479515 usec
+
+16.5 % of time taken compared to base
+
+mask1 results:
+
+c0f0b@anvil:a3_c0f0b_e1d0b$ ./timemask-mask1 galaxy.pgm 10 galaxyTestMask1.pgm
+Processing a mask for a 2048x2048 image for 10 trials (check must be: 158581069)
+
+Base run  0 done, check    158581069, took      2702910 usec
+Base run  1 done, check    158581069, took      2693428 usec
+Base run  2 done, check    158581069, took      3058560 usec
+Base run  3 done, check    158581069, took      3040475 usec
+Base run  4 done, check    158581069, took      3028557 usec
+Base run  5 done, check    158581069, took      3055513 usec
+Base run  6 done, check    158581069, took      2999036 usec
+Base run  7 done, check    158581069, took      3011791 usec
+Base run  8 done, check    158581069, took      3073719 usec
+Base run  9 done, check    158581069, took      3029163 usec
+
+The base implementation took:
+	Best   :      2693428 usec
+	Average:      2969315 usec
+
+Starting the optimized version
+
+Optimized run  0 done, check    158581069, took       454675 usec
+Optimized run  1 done, check    158581069, took       455790 usec
+Optimized run  2 done, check    158581069, took       452704 usec
+Optimized run  3 done, check    158581069, took       452696 usec
+Optimized run  4 done, check    158581069, took       452861 usec
+Optimized run  5 done, check    158581069, took       452698 usec
+Optimized run  6 done, check    158581069, took       452506 usec
+Optimized run  7 done, check    158581069, took       452606 usec
+Optimized run  8 done, check    158581069, took       452495 usec
+Optimized run  9 done, check    158581069, took       452453 usec
+
+The optimized implementation took:
+	Best   :       452453 usec
+	Average:       453148 usec
+
+15.2 % time taken compared to base
+
+mask2 results:
+c0f0b@anvil:a3_c0f0b_e1d0b$ ./timemask-mask2 galaxy.pgm 10 galaxyTestMask2.pgm
+Processing a mask for a 2048x2048 image for 10 trials (check must be: 158581069)
+
+Base run  0 done, check    158581069, took      2838517 usec
+Base run  1 done, check    158581069, took      2701013 usec
+Base run  2 done, check    158581069, took      2678467 usec
+Base run  3 done, check    158581069, took      2702846 usec
+Base run  4 done, check    158581069, took      2711851 usec
+Base run  5 done, check    158581069, took      2695623 usec
+Base run  6 done, check    158581069, took      2678759 usec
+Base run  7 done, check    158581069, took      2695215 usec
+Base run  8 done, check    158581069, took      2710287 usec
+Base run  9 done, check    158581069, took      2691815 usec
+
+The base implementation took:
+	Best   :      2678467 usec
+	Average:      2710439 usec
+
+Starting the optimized version
+
+Optimized run  0 done, check    158581069, took       439712 usec
+Optimized run  1 done, check    158581069, took       439695 usec
+Optimized run  2 done, check    158581069, took       439698 usec
+Optimized run  3 done, check    158581069, took       439844 usec
+Optimized run  4 done, check    158581069, took       440030 usec
+Optimized run  5 done, check    158581069, took       439669 usec
+Optimized run  6 done, check    158581069, took       440535 usec
+Optimized run  7 done, check    158581069, took       439911 usec
+Optimized run  8 done, check    158581069, took       439943 usec
+Optimized run  9 done, check    158581069, took       439829 usec
+
+The optimized implementation took:
+	Best   :       439669 usec
+	Average:       439886 usec
+
+16.2 % of time taken compared to base
