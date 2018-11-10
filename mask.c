@@ -146,16 +146,18 @@ static inline long mask0(long oldImage[N][N], long newImage[N][N], int rows, int
 
 static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int cols) {
 
-  // TODO This function should contain code that produces the same
-  // output as baseMask, but is expected to run faster than mask0 by
-  // making better use of caching.
+    // TODO This function should contain code that produces the same
+    // output as baseMask, but is expected to run faster than mask0 by
+    // making better use of caching.
 
 
-     int i, j;
-    int col, row;
-    long check = 0;
-
-    long (*weight)[N] = calloc(N * N, sizeof(long));
+    // //initialize the new image
+    // for (i = 0; i < cols; i++){
+    //   for (j = 0; j < rows; j++) {
+    //     newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
+    //     weight[i][j] = WEIGHT_CENTRE;
+    //   }
+    // }
     
       //initialize the new image
     for (i = 0; i < cols; i++){
@@ -176,21 +178,8 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
     // }
       
 
-      if (i > 0 ) {
-        col = i - 1;
-        newImage[i][j] += oldImage[col][j];
-        weight[i][j]++; 
-      }
 
-      if ((i > 0) && (j < rows - 1)) {
-        col = i - 1;
-        row = j + 1;
-        newImage[i][j] += oldImage[col][row];
-        weight[i][j]++;
-      }
-      
-
-      if ((i > 0) && (j > 0)){
+        if ((i > 0) && (j > 0)){
         col = i - 1;
         row = j - 1;
         newImage[i][j] += oldImage[col][row];
@@ -207,7 +196,7 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
     //   }
     // }
 
-      
+
       if (j > 0){
         row = j - 1;
         newImage[i][j] += oldImage[i][row];
@@ -258,7 +247,7 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
       if (i < cols - 1){
         col = i + 1;
         newImage[i][j] += oldImage[col][j];
-        weight[i][j]++; 
+        weight[i][j]++;     
       }
     //     // Count the cells to the bottom left
     // for (i = 1; i < cols; i++) {
@@ -270,7 +259,12 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
     //   }
     // }
     
-
+      if ((i > 0) && (j < rows - 1)) {
+        col = i - 1;
+        row = j + 1;
+        newImage[i][j] += oldImage[col][row];
+        weight[i][j]++;
+      }
 
         // // Count the cells immediately below
     // for (i = 0; i < cols; i++) {
@@ -321,8 +315,7 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
 
     return check;
 
-
-    
+      
   }
 
 
