@@ -150,6 +150,7 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
   // output as baseMask, but is expected to run faster than mask0 by
   // making better use of caching.
 
+
    int i, j;
   int col, row;
   long check = 0;
@@ -162,7 +163,6 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
       newImage[i][j] = WEIGHT_CENTRE * oldImage[i][j];
       weight[i][j] = WEIGHT_CENTRE;
     }
-  
   
   // Count the cells to the top left
   for (i = 1; i < cols; i++) {
@@ -248,9 +248,6 @@ static inline long mask1(long oldImage[N][N], long newImage[N][N], int rows, int
     }
   
   return check;
-
-
-}
   
 
 
