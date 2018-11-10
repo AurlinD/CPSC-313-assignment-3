@@ -302,14 +302,29 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
       col = i - 1;
       newImage[i][j] += oldImage[col][j];
       weight[i][j]++; 
-      if (j > 0){
 
+      if (j > 0){
+        col = i - 1;
+        row = j - 1;
+        newImage[i][j] += oldImage[col][row];
+        weight[i][j]++;
+      }
+
+      if (j < rows - 1){
       col = i - 1;
-      row = j - 1;
+      row = j + 1;
       newImage[i][j] += oldImage[col][row];
       weight[i][j]++;
       }
+
     }
+
+    // if ((i > 0) && (j < rows - 1)) {
+    //   col = i - 1;
+    //   row = j + 1;
+    //   newImage[i][j] += oldImage[col][row];
+    //   weight[i][j]++;
+    // }
     //////
     // if ((i > 0) && (j > 0)){
     //   col = i - 1;
@@ -398,12 +413,7 @@ static inline long mask2(long oldImage[N][N], long newImage[N][N], int rows, int
   //   }
   // }
   
-    if ((i > 0) && (j < rows - 1)) {
-      col = i - 1;
-      row = j + 1;
-      newImage[i][j] += oldImage[col][row];
-      weight[i][j]++;
-    }
+
 
       // // Count the cells immediately below
   // for (i = 0; i < cols; i++) {
