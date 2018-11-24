@@ -1,62 +1,63 @@
-Total before late penalty: [/51]
+Total before late penalty: [47/51]
 
-[/17] Question 1
+[17/17] Question 1
 ----------
 
-    [/1] Function cache_line_check_validity_and_tag
+    [1/1] Function cache_line_check_validity_and_tag
         0.5 mark for checking the valid bit
         0.5 mark for checking the tag
 
-    [/1] Function cache_line_retrieve_data
+    [1/1] Function cache_line_retrieve_data
         0.5 mark for using the offset correctly
         0.5 mark for retrieving a 4 byte integer (not only a single byte)
 
 
-    [/4] Function cache_set_find_matching_line
+    [4/4] Function cache_set_find_matching_line
         1 mark for looping through the cache lines in the set
         1 mark for checking tags and validity of each
         1 mark for calling cache_line_make_mru as appropriate
         1 mark for the correct return values
 
-    [/3] Function find_available_cache_line
+    [3/3] Function find_available_cache_line
         1 mark for returning an invalid (empty) cache line if one exists
         1 mark for returning the least recently used line if all are valid
         1 mark for calling cache_line_make_mru as appropriate
 
-    [/7] Function cache_read
+    [7/7] Function cache_read
         1 mark for extracting the tag, set index and cache block offsets
         2 marks for handling the case where the data is in the cache
         3 marks for the case where the data is not already in the cache
         1 mark for updating access_count and miss_count
 
-    [/1] Comments and style
+    [1/1] Comments and style
 
 
-[/21] Question 2
+[19/21] Question 2
 ----------
          For each part, specifying the miss rate is worth 0.5 marks, and
         explanation is worth 2.5 marks
 
-        [/3] part a.
+        [3/3] part a.
 
-        [/3] part b.
+        [3/3] part b.
 
-        [/3] part c.
+        [3/3] part c.
 
-        [/3] part d.
+        [3/3] part d.
 
-        [/3] part e.
+        [3/3] part e.
 
-        [/3] part f.
+        [1/3] part f.
 
-        [/3] part g.
+        [3/3] part g.
 
-[/12] Question 3
+[10/12] Question 3
 ----------
 
-         [/2] 2 marks, modifications compile and execute, baseline data
+         [1.5/2] 2 marks, modifications compile and execute, baseline data
+            --You did not define MASK_VERISON
 
-         [/4] There should be at least 2 other documented attempts to
+         [3/4] There should be at least 2 other documented attempts to
               improve performance, they don't have to succeed but the
               rationale needs to be sound. One example would be to
               collapse all the separate sets of loops down into 1
@@ -64,12 +65,12 @@ Total before late penalty: [/51]
 	      
 	      2 marks for each attempt and rationale to a maximum of 4
 
-         [/2] 2 marks Table of results
+         [2/2] 2 marks Table of results
 
-         [/4] up to 4 marks for performance improvement
+         [3.5/4] up to 4 marks for performance improvement
 
  --------------------
 
- [/1] Filled in Cover Page
+ [1/1] Filled in Cover Page
 
  -----------------------------------
